@@ -13,35 +13,25 @@ class LoginAPI(BaseAPI):
             APIMethod.POST,
             self.endpoint,
             data={"email": self.email, "password": self.password})
-        self.respnse_code = response.status_code,
+        self.response_code = response.status
         self.response_json = self._get_response_body(response)
 
     def validate_response(self):
-        self._verify_status_code(self.respnse_code, 200)
+        self._verify_status_code(self.response_code, 200)
         expected_schema = {
-            {
-                "type": "object",
-                "properties": {
-                    "msg": {
-                    "type": "string"
-                    },
-                    "accessToken": {
-                    "type": "string"
-                    },
-                    "exp": {
-                    "type": "string"
-                    }
-                },
-                "required": [
-                    "msg",
-                    "accessToken",
-                    "exp"
-                ],
-                "additionalProperties": False
-}
+            "type": "object",
+            "properties": {
+                "msg": {"type": "string"},
+                "accessToken": {"type": "string"},
+                "exp": {"type": "string"}
+            },
+            "required": ["msg", "accessToken", "exp"],
+            "additionalProperties": False
         }    
         self._validate_json_schema(self.response_json, expected_schema)
 
-        def verify_login_successfully(self):
-            assert self.response_json["access_token"] is not None
-            
+    def verify_login_successfully(self):
+        assert self.response_json.get("accessToken") is not None
+
+    def get_access_token(self):
+        return self.response_json.get("accessToken")
