@@ -1,11 +1,12 @@
 from core.base_api import BaseAPI
 from api.login_api import LoginAPI
 from api.profile_api import ProfileAPI
+from utils.data import EMAIL, PASSWORD
 
 class TestChangePassword:
     name_user = None
-    email_user = None
-    password_user = None
+    email_user = EMAIL
+    password_user = PASSWORD
     access_token = None
     new_password = "Abc@1234"
 
@@ -20,5 +21,5 @@ class TestChangePassword:
         profile_api  = ProfileAPI(request_context, TestChangePassword.access_token)
         profile_api.change_password(TestChangePassword.password_user, TestChangePassword.new_password)
         profile_api.validate_response()
-        profile_api.verify_change_password_successfully()
+        profile_api.verify_update_profile_successfully()
         TestChangePassword.password_user = TestChangePassword.new_password
