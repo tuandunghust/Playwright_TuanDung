@@ -43,11 +43,16 @@ class ProfileAPI(BaseAPI):
         }    
         self._validate_json_schema(self.response_json, expected_schema) 
 
-    def update_profile(self, infomation_change: dict):  
+
+    def update_profile(self, information_change: dict): 
+        for key in information_change.keys():
+            if key not in self.key_profile:
+                raise ValueError(f"Key '{key}' is not valid. Valid keys are: {self.key_profile}")
+  
         response = self._send_request(
             APIMethod.PATCH,
             self.endpoint,
-            data=infomation_change,
+            data=information_change,
             headers={"Authorization": f"Bearer {self.access_token}"}
         )
         self.response_code = response.status_code

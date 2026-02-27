@@ -16,7 +16,7 @@ class MeAPI(BaseAPI):
             self.endpoint,
             headers={"Authorization": f"Bearer {self.access_token}"}
         )
-        self.response_code = response.status_code
+        self.response_code = response.status
         self.response_json = self._get_response_body(response)
 
     def validate_response(self):
