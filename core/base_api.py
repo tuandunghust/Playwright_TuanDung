@@ -27,7 +27,7 @@ class BaseAPI:
         return response
 
     def _verify_status_code(self, response_code: int, expected_status_code: int):
-        assert response_code == expected_status_code
+        assert response_code == expected_status_code, f"Expected status {expected_status_code}, but got {response_code}"
 
     def _get_response_body(self, response: Response):
         response_body = response.json()

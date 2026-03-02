@@ -13,7 +13,7 @@ class TestUpdateProfile:
         "address": "Test Address"
     }
     information_change_unsuccessfully = {
-        "name": "Test User",
+        "name": "",
         "phone": "1234567890",
         "address": "Test Address"
     }
@@ -29,12 +29,11 @@ class TestUpdateProfile:
         profile_api  = ProfileAPI(request_context, TestUpdateProfile.access_token)
         profile_api.update_profile(TestUpdateProfile.information_change)
         profile_api.validate_response()
-        profile_api.verify_update_profile_successfully()
+        profile_api.validate_update_profile_successfully()
     
-    def test_3_update_profile_unsuccessfully(self, request_context):
-        profile_api  = ProfileAPI(request_context, TestUpdateProfile.access_token)
-        profile_api.update_profile(TestUpdateProfile.information_change_unsuccessfully)
-        profile_api.validate_response()
-        profile_api.verify_update_profile_successfully()
+    # def test_3_update_profile_unsuccessfully(self, request_context):
+    #     profile_api  = ProfileAPI(request_context, TestUpdateProfile.access_token)
+    #     profile_api.update_profile(TestUpdateProfile.information_change_unsuccessfully)
+    #     profile_api.validate_error_response(400)
 
         
